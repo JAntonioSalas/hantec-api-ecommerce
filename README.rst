@@ -40,22 +40,22 @@ Version 15.0.0
 Version 15.0.0
 
 - Initial release with the following features:
-  - Added `/create_schedule_activity_invoice` endpoint.
-  - Added `/get_states_mexico` endpoint.
-  - Added `/get_inventory_by_sku` endpoint.
-  - Added `/get_inventory` endpoint.
-  - Added `/send_message_sale_order` endpoint.
-  - Added `/create_schedule_activity` endpoint.
-  - Added `/confirm_sale_order` endpoint.
-  - Added `/send_invoice_by_email/<int:invoice_id>` endpoint.
-  - Added `/stamp_invoice/<int:invoice_id>` endpoint.
-  - Added `/download_invoice/<int:invoice_id>` endpoint.
-  - Added `/get_shipping_info/<model("sale.order"):order>` endpoint.
-  - Added `/register_payment_invoice/<model("account.move"):invoice>` endpoint.
-  - Added `/invoice_sale_order` endpoint.
-  - Added `/update_sale_order` endpoint.
-  - Added `/create_sale_order` endpoint.
-  - Added `/delivery_address` endpoint.
-  - Added `/address_invoice` endpoint.
-  - Added `/update_contact` endpoint.
-  - Added `/create_contact` endpoint.
+- Added `/create_schedule_activity_invoice` endpoint.
+- Added `/get_states_mexico` endpoint.
+- Added `/get_inventory_by_sku` endpoint.
+- Added `/get_inventory` endpoint.
+- Added `/send_message_sale_order` endpoint.
+- Added `/create_schedule_activity` endpoint.
+- Added `/confirm_sale_order` endpoint.
+- Added `/send_invoice_by_email/<int:invoice_id>` endpoint.
+- Added `/stamp_invoice/<int:invoice_id>` endpoint.
+- Added `/download_invoice/<int:invoice_id>` endpoint.
+- Added `/get_shipping_info/<model("sale.order"):order>` endpoint.
+- Added `/register_payment_invoice/<model("account.move"):invoice>` endpoint.
+- Added `/invoice_sale_order` endpoint.
+- Added `/update_sale_order` endpoint.
+- Added `/create_sale_order` endpoint.
+- Added `/delivery_address` endpoint.
+- Added `/address_invoice` endpoint.
+- Added `/update_contact` endpoint.
+- Added `/create_contact` endpoint.

@@ -125,7 +125,7 @@ class MainController(Controller):
             dict: A dictionary with a success message.
 
         """
-        update_vals = request.jsonrequest.get("update_vals")  # Values to update
+        update_vals = request.get_json_data().get("update_vals")  # Values to update
         partner.write(update_vals)  # Update the contact with the new values
         logger.debug("Contact updated with ID %s", partner.id)
 
@@ -158,7 +158,7 @@ class MainController(Controller):
             dict: A dictionary with a success message and the address ID.
         """
         env = request.env
-        data = request.jsonrequest
+        data = request.get_json_data()
         partner_id = data.get("partner_id")
         address_data = data.get("address_data")
         address_type = data.get("address_type")  # "invoice" or "delivery"
@@ -207,7 +207,7 @@ class MainController(Controller):
             dict: A dictionary with a success message, the sale order ID, and the sale order name.
         """
         required_fields = ["partner_id", "product_lines"]
-        data = request.jsonrequest
+        data = request.get_json_data()
 
         sale_order_data = {field: data[field] for field in required_fields}
 
@@ -276,7 +276,7 @@ class MainController(Controller):
             dict: A dictionary with a success message.
 
         """
-        tracking_number = request.jsonrequest.get("tracking_number")
+        tracking_number = request.get_json_data().get("tracking_number")
         order.update({"yuju_carrier_tracking_ref": tracking_number})
 
         return {
@@ -310,7 +310,7 @@ class MainController(Controller):
             dict: A dictionary with a success message and a list of created invoices.
 
         """
-        data = request.jsonrequest
+        data = request.get_json_data()
         context = {
             "active_model": "sale.order",
             "active_ids": [order.id],
@@ -371,7 +371,7 @@ class MainController(Controller):
             dict: A dictionary with a success message.
 
         """
-        data = request.jsonrequest
+        data = request.get_json_data()
         amount = data.get("amount")
         journal_id = data.get("journal_id")
         payment_method_id = data.get("payment_method_id")
@@ -596,11 +596,11 @@ class MainController(Controller):
             dict: A dictionary with a confirmation message.
         """
         activity = order.activity_schedule(
-            activity_type_id=request.jsonrequest.get("activity_type_id"),
-            summary=request.jsonrequest.get("summary", ""),
-            note=request.jsonrequest.get("note", ""),
-            date_deadline=request.jsonrequest.get("date_deadline"),
-            user_id=request.jsonrequest.get("user_id", request.env.uid),
+            activity_type_id=request.get_json_data().get("activity_type_id"),
+            summary=request.get_json_data().get("summary", ""),
+            note=request.get_json_data().get("note", ""),
+            date_deadline=request.get_json_data().get("date_deadline"),
+            user_id=request.get_json_data().get("user_id", request.env.uid),
         )
 
         return {
@@ -632,7 +632,7 @@ class MainController(Controller):
             dict: A dictionary with a confirmation message.
 
         """
-        message_body = request.jsonrequest.get("message_body")
+        message_body = request.get_json_data().get("message_body")
         # Post the message in the sale order chatter
         order.message_post(body=message_body)
         logger.debug("Message posted in sale order with ID %s", order.id)
@@ -669,11 +669,11 @@ class MainController(Controller):
         Returns:
             dict: A dictionary with a message and the inventory details of the products.
         """
-        location_id = request.jsonrequest.get("location_id") or request.params.get(
+        location_id = request.get_json_data().get("location_id") or request.params.get(
             "location_id"
         )
         sku = (
-            request.jsonrequest.get("sku")
+            request.get_json_data().get("sku")
             if request.httprequest.method == "POST"
             else request.params.get("sku")
         )
@@ -740,7 +740,7 @@ class MainController(Controller):
             - product_id (int): The ID of the product if found.
             - message (str): A message indicating the result.
         """
-        sku = request.jsonrequest.get("sku")
+        sku = request.get_json_data().get("sku")
 
         product = request.env["product.product"].search(
             [("default_code", "=", sku)], limit=1

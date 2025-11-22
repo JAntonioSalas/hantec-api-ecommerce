@@ -493,10 +493,16 @@ class MainController(Controller):
             }
 
         # Attempt the stamping process
-        wizard = request.env['account.move.send'].create({
+        ctx = {
+            'active_model': 'account.move',
+            'active_ids': [invoice.id],
+            'active_id': invoice.id,
+        }
+
+        wizard = request.env['account.move.send'].with_context(ctx).create({
             'move_ids': [invoice.id],
-            'checkbox_send_mail': False, # No send mail after stamping.
-            'checkbox_download': False,  # No download the PDF in the response.
+            'checkbox_send_mail': False, 
+            'checkbox_download': False,  
         })
         
         # This action generates the PDF and triggers the CFDI creation (Stamping)
